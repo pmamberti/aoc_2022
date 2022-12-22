@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require_relative '../day_03-01'
+require_relative '../backpack'
 
-RSpec.describe FindMisplaced do
+RSpec.describe Backpack do
   subject { described_class }
 
   context 'find the item out of place' do
@@ -28,6 +28,23 @@ RSpec.describe FindMisplaced do
 
     it '"s" is out of place in CrZsJsPPZsGzwwsLwLmpwMDw' do
       expect(subject.check('CrZsJsPPZsGzwwsLwLmpwMDw')).to eq('s')
+    end
+  end
+
+  context 'assign priority' do
+    # Lowercase item types a through z have priorities 1 through 26.
+    # Uppercase item types A through Z have priorities 27 through 52
+    it "assings a priority of X to 'a'" do
+      expect(subject.priority('a')).to eq(1)
+    end
+    it "assings a priority of X to 'z'" do
+      expect(subject.priority('z')).to eq(26)
+    end
+    it "assings a priority of X to 'A'" do
+      expect(subject.priority('A')).to eq(27)
+    end
+    it "assings a priority of X to 'Z'" do
+      expect(subject.priority('Z')).to eq(52)
     end
   end
 end
