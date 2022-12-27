@@ -18,4 +18,10 @@ class Backpack
       char.ord - 38
     end
   end
+
+  def self.badge(arr)
+    arr[0].each_char do |c|
+      return c if arr[1].include?(c) && arr[2].include?(c)
+    end
+  end
 end

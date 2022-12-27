@@ -47,4 +47,36 @@ RSpec.describe Backpack do
       expect(subject.priority('Z')).to eq(52)
     end
   end
+
+  context 'authentic badges' do
+    # The following two groups of badges should have `r` and `Z`
+    # respectively as the authenticity badges
+    # vJrwpWtwJgWrhcsFMMfFFhFp
+    # jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL
+    # PmmdzqPrVvPwwTWBwg
+
+    # wMqvLMZHhHMvwLHjbvcjnnSBnvTQFn
+    # ttgJtRGJQctTZtZT
+    # CrZsJsPPZsGzwwsLwLmpwMDw
+
+    it 'returns "r" when looking at the first batch' do
+      batch = %w[
+        vJrwpWtwJgWrhcsFMMfFFhFp
+        jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL
+        PmmdzqPrVvPwwTWBwg
+      ]
+
+      expect(subject.badge(batch)).to eq('r')
+    end
+
+    it 'returns "Z" when looking at the first batch' do
+      batch = %w[
+        wMqvLMZHhHMvwLHjbvcjnnSBnvTQFn
+        ttgJtRGJQctTZtZT
+        CrZsJsPPZsGzwwsLwLmpwMDw
+      ]
+
+      expect(subject.badge(batch)).to eq('Z')
+    end
+  end
 end

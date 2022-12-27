@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'backpack'
 
 backpacks = File.readlines('inputs.txt')
