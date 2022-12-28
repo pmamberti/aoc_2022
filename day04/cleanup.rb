@@ -1,9 +1,11 @@
 # frozen_string_literal: true
 
 class Cleanup
-  attr_reader :total_overlaps
+  attr_reader :complete_overlaps, :partial_overlaps
 
   def initialize
+    @complete_overlaps = 0
+    @partial_overlaps = 0
     @total_overlaps = 0
   end
 
@@ -22,10 +24,22 @@ class Cleanup
 
   def overlap?(task1, task2)
     if (task1.difference(task2) == []) || (task2.difference(task1) == [])
-      @total_overlaps += 1
+      @complete_overlaps += 1
       return true
     end
 
     false
+  end
+
+  def partial_overlap?(task1, task2)
+    if task1.intersect?(task2)
+      @partial_overlaps += 1
+      return true
+    end
+    false
+  end
+
+  def total_overlaps
+    @partial_overlaps + @complete_overlaps
   end
 end

@@ -12,7 +12,7 @@ task_lists.each do |tl|
   task1 = tasks[0]
   task2 = tasks[1]
 
-  optimize.overlap?(task1, task2)
+  optimize.partial_overlap?(task1, task2)
 end
 
-puts optimize.complete_overlaps
+puts optimize.total_overlaps

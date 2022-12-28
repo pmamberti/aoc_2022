@@ -27,7 +27,7 @@ RSpec.describe Cleanup do
   #   let(:count) { 0 }
   # end
 
-  context 'tasks that overlap' do
+  context 'tasks that overlap completely' do
     # .2345678.  2-8
     # ..34567..  3-7
     let(:task1) { (2..8).to_a }
@@ -35,19 +35,31 @@ RSpec.describe Cleanup do
 
     it 'returns true and increases the final count by 1' do
       expect(subject.overlap?(task1, task2)).to be(true)
-      expect(subject.total_overlaps).to eq 1
+      expect(subject.complete_overlaps).to eq 1
     end
   end
 
-  context "tasks don't overlap" do
+  context "tasks don't overlap completely" do
     # ....567..  5-7
     # ......789  7-9
     let(:task1) { (5..7).to_a }
     let(:task2) { (7..9).to_a }
 
+    it 'returns true and increase the final count' do
+      expect(subject.partial_overlap?(task1, task2)).to be(true)
+      expect(subject.partial_overlaps).to eq(1)
+    end
+  end
+
+  context "tasks don't overlap at all" do
+    # ....567..  5-7
+    # ......789  7-9
+    let(:task1) { (5..7).to_a }
+    let(:task2) { (1..1).to_a }
+
     it 'returns false and does not increase the final count' do
       expect(subject.overlap?(task1, task2)).to be(false)
       expect(subject.total_overlaps).to eq(0)
     end
-  end
+    end
 end
